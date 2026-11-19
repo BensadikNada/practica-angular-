@@ -1,0 +1,67 @@
+<div class="proyectos-container">
+  <div class="proyectos-header">
+    <div>
+      <h1>Gestión de proyectos</h1>
+      <p>Administra los proyectos de la empresa.</p>
+    </div>
+
+    @if (esAdmin) {
+      <a routerLink="/proyectos/nuevo" class="add-button">
+        <svg lucidePlus [size]="20"></svg>
+        Añadir proyecto
+      </a>
+    }
+  </div>
+
+  @if (proyectos.length > 0) {
+    <div class="proyectos-list">
+      @for (proyecto of proyectos; track proyecto.id) {
+        <div class="proyecto-card">
+          <h2>{{ proyecto.nombre }}</h2>
+          <p>{{ proyecto.descripcion }}</p>
+          <p>
+            <strong>Fecha de inicio:</strong>
+            {{ proyecto.fechaInicio | date: 'dd/MM/yyyy' }}
+          </p>
+
+          <p>
+            <strong>Fecha estimada de fin:</strong>
+            {{ proyecto.fechaFin | date: 'dd/MM/yyyy' }}
+          </p>
+          <div class="proyecto-actions">
+            <button
+              type="button"
+              class="view-button"
+              title="Ver proyecto"
+              [routerLink]="['/proyectos', proyecto.id]"
+            >
+              <svg lucideEye [size]="18"></svg>
+            </button>
+
+            @if (esAdmin) {
+              <button
+                type="button"
+                class="edit-button"
+                title="Editar proyecto"
+                [routerLink]="['/proyectos/editar', proyecto.id]"
+              >
+                <svg lucidePencil [size]="18"></svg>
+              </button>
+
+              <button
+                type="button"
+                class="delete-button"
+                title="Eliminar proyecto"
+                (click)="eliminarProyecto(proyecto.id)"
+              >
+                <svg lucideTrash [size]="18"></svg>
+              </button>
+            }
+          </div>
+        </div>
+      }
+    </div>
+  } @else {
+    <p class="empty-message">Todavía no hay proyectos registrados.</p>
+  }
+</div>

@@ -1,0 +1,64 @@
+
+<div class="empleados-container">
+
+  <div class="empleados-header">
+    <div>
+      <h1>Gestión de empleados</h1>
+      <p>Administra los empleados de la empresa.</p>
+    </div>
+
+    <a routerLink="/empleados/nuevo" class="add-button">
+      <svg lucidePlus [size]="20"></svg>
+      Añadir empleado
+    </a>
+  </div>
+
+  @if (empleados.length > 0) {
+    <div class="empleados-list">
+
+      @for (empleado of empleados; track empleado.id) {
+        <div class="empleado-card">
+
+          <div class="empleado-info">
+            <h2>{{ empleado.nombreCompleto }}</h2>
+            <p>{{ empleado.correoElectronico }}</p>
+            <p><strong>Puesto:</strong> {{ empleado.puesto }}</p>
+            <p><strong>Proyectos:</strong> {{ empleado.proyectosId.length }}</p>
+            <p><strong>Tareas:</strong> {{ empleado.tareasId.length }}</p>
+          </div>
+
+          <div class="empleado-actions">
+            <button
+              type="button"
+              class="view-button"
+              title="Ver empleado"
+              [routerLink]="['/empleados', empleado.id]">
+              <svg lucideEye [size]="18"></svg>
+            </button>
+
+            <button
+              type="button"
+              class="edit-button"
+              title="Editar empleado"
+              [routerLink]="['/empleados/editar', empleado.id]">
+              <svg lucidePencil [size]="18"></svg>
+            </button>
+
+            <button
+              type="button"
+              class="delete-button"
+              title="Eliminar empleado"
+              (click)="eliminarEmpleado(empleado.id)">
+              <svg lucideTrash [size]="18"></svg>
+            </button>
+          </div>
+
+        </div>
+      }
+
+    </div>
+  } @else {
+    <p class="empty-message">Todavía no hay empleados registrados.</p>
+  }
+
+</div>

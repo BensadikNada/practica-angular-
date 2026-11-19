@@ -1,0 +1,71 @@
+
+<div class="detalle-container">
+
+  @if (empleado) {
+    <div class="page-header">
+      <div>
+        <h1>Detalles del empleado</h1>
+        <p>Información y asignaciones del empleado.</p>
+      </div>
+
+      <a [routerLink]="['/empleados/editar', empleado.id]" class="edit-button">
+        Editar empleado
+      </a>
+    </div>
+
+    <div class="detalle-card">
+
+      <h2>Información personal</h2>
+
+      <div class="detail-row">
+        <strong>Nombre completo:</strong>
+        <span>{{ empleado.nombreCompleto }}</span>
+      </div>
+
+      <div class="detail-row">
+        <strong>Correo electrónico:</strong>
+        <span>{{ empleado.correoElectronico }}</span>
+      </div>
+
+      <div class="detail-row">
+        <strong>Puesto:</strong>
+        <span>{{ empleado.puesto }}</span>
+      </div>
+
+      <hr>
+
+      <h2>Proyectos asignados</h2>
+
+      @if (empleado.proyectosId.length > 0) {
+        <ul>
+          @for (proyectoId of empleado.proyectosId; track proyectoId) {
+            <li>{{ getNombreProyecto(proyectoId) }}</li>
+          }
+        </ul>
+      } @else {
+        <p class="empty-message">No tiene proyectos asignados.</p>
+      }
+
+      <hr>
+
+      <h2>Tareas asignadas</h2>
+
+      @if (empleado.tareasId.length > 0) {
+        <ul>
+          @for (tareaId of empleado.tareasId; track tareaId) {
+            <li>{{ getTituloTarea(tareaId) }}</li>
+          }
+        </ul>
+      } @else {
+        <p class="empty-message">No tiene tareas asignadas.</p>
+      }
+
+      <div class="form-actions">
+        <a routerLink="/empleados" class="back-button">
+          Volver a empleados
+        </a>
+      </div>
+
+    </div>
+  }
+</div>

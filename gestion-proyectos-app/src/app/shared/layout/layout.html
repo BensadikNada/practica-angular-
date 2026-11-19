@@ -1,0 +1,55 @@
+<div class="layout-container" [class.sidebar-open]="sidebarVisible">
+  <aside class="sidebar">
+    <div class="sidebar-header">
+      <h2>GestionApp</h2>
+    </div>
+
+    <nav class="sidebar-nav">
+      <a routerLink="/dashboard" routerLinkActive="active">
+        <svg lucideLayoutDashboard [size]="20"></svg>
+        <span>Dashboard</span>
+      </a>
+
+      <a routerLink="/proyectos" routerLinkActive="active">
+        <svg lucideFolder [size]="20"></svg>
+        <span>Proyectos</span>
+      </a>
+
+      @if (esAdmin) {
+        <a routerLink="/empleados" routerLinkActive="active">
+          <svg lucideUsers [size]="20"></svg>
+          <span>Empleados</span>
+        </a>
+      }
+
+      <a routerLink="/tareas" routerLinkActive="active">
+        <svg lucideClipboardList [size]="20"></svg>
+        <span>Tareas</span>
+      </a>
+    </nav>
+
+    <div class="sidebar-footer">
+      <button type="button" (click)="logout()">
+        <svg lucideLogOut [size]="19"></svg>
+        <span>Cerrar sesión</span>
+      </button>
+    </div>
+  </aside>
+
+  <main class="main-content">
+    <button
+      type="button"
+      class="menu-toggle"
+      (click)="toggleSidebar()"
+      aria-label="Abrir o cerrar menú"
+    >
+      <svg lucideMenu [size]="23"></svg>
+    </button>
+
+    <router-outlet></router-outlet>
+  </main>
+
+  @if (sidebarVisible) {
+    <div class="sidebar-overlay" (click)="toggleSidebar()"></div>
+  }
+</div>

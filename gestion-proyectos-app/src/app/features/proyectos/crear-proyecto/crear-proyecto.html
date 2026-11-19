@@ -1,0 +1,79 @@
+
+<div class="crear-proyecto-container">
+
+  <div class="page-header">
+    <div>
+      <h1>Nuevo proyecto</h1>
+      <p>Completa la información para registrar un nuevo proyecto.</p>
+    </div>
+  </div>
+
+  <div class="form-card">
+
+    <form (ngSubmit)="crearProyecto()">
+
+      <div class="form-group">
+        <label for="nombre">Nombre del proyecto</label>
+        <input
+          type="text"
+          id="nombre"
+          name="nombre"
+          [(ngModel)]="nuevoProyecto.nombre"
+          placeholder="Introduce el nombre del proyecto"
+          required
+        >
+      </div>
+
+      <div class="form-group">
+        <label for="descripcion">Descripción</label>
+        <textarea
+          id="descripcion"
+          name="descripcion"
+          [(ngModel)]="nuevoProyecto.descripcion"
+          placeholder="Describe brevemente el proyecto"
+          rows="4"
+          required
+        ></textarea>
+      </div>
+
+      <div class="form-row">
+
+        <div class="form-group">
+          <label for="fechaInicio">Fecha de inicio</label>
+          <input
+            type="date"
+            id="fechaInicio"
+            name="fechaInicio"
+            [(ngModel)]="nuevoProyecto.fechaInicio"
+            required
+          >
+        </div>
+
+        <div class="form-group">
+          <label for="fechaFin">Fecha estimada de fin</label>
+          <input
+            type="date"
+            id="fechaFin"
+            name="fechaFin"
+            [(ngModel)]="nuevoProyecto.fechaFin"
+            required
+          >
+        </div>
+
+      </div>
+
+      <div class="form-actions">
+        <button type="button" class="cancel-button" (click)="cancelar()">
+          Cancelar
+        </button>
+
+        <button type="submit" class="save-button">
+          Crear proyecto
+        </button>
+      </div>
+
+    </form>
+
+  </div>
+
+</div>

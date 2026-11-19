@@ -1,0 +1,101 @@
+<div class="tareas-container">
+  <div class="tareas-header">
+    <div>
+      <h1>Gestión de tareas</h1>
+      <p>Administra las tareas de los proyectos.</p>
+    </div>
+
+    @if (esAdmin) {
+      <a routerLink="/tareas/nueva" class="add-button">
+        <svg lucidePlus [size]="20"></svg>
+        Añadir tarea
+      </a>
+    }
+  </div>
+
+  @if (tareas.length > 0) {
+    <div class="tareas-list">
+      @for (tarea of tareas; track tarea.id) {
+        <div class="tarea-card">
+          <div class="tarea-card-header">
+            <h2>{{ tarea.titulo }}</h2>
+
+            <span class="estado" [class]="tarea.estado">
+              {{
+                tarea.estado === 'en-progreso'
+                  ? 'En progreso'
+                  : tarea.estado === 'completada'
+                    ? 'Completada'
+                    : 'Pendiente'
+              }}
+            </span>
+          </div>
+
+          <p>{{ tarea.descripcion }}</p>
+
+          <p>
+            <strong>Proyecto:</strong>
+            {{ getNombreProyecto(tarea.proyectoId) }}
+          </p>
+
+          <p>
+            <strong>Fecha de creación:</strong>
+            {{ tarea.fechaInicio | date: 'dd/MM/yyyy' }}
+          </p>
+
+          @if (tarea.fechaFin) {
+            <p>
+              <strong>Fecha de entrega:</strong>
+              {{ tarea.fechaFin | date: 'dd/MM/yyyy' }}
+            </p>
+          }
+
+          <div class="tarea-actions">
+            <!-- Both users can see task details -->
+            <button
+              type="button"
+              class="view-button"
+              title="Ver tarea"
+              [routerLink]="['/tareas', tarea.id]"
+            >
+              <svg lucideEye [size]="18"></svg>
+            </button>
+
+            @if (esAdmin) {
+              <button
+                type="button"
+                class="edit-button"
+                title="Editar tarea"
+                [routerLink]="['/tareas/editar', tarea.id]"
+              >
+                <svg lucidePencil [size]="18"></svg>
+              </button>
+
+              <button
+                type="button"
+                class="delete-button"
+                title="Eliminar tarea"
+                (click)="eliminarTarea(tarea.id)"
+              >
+                <svg lucideTrash [size]="18"></svg>
+              </button>
+            } @else {
+              <select
+                class="estado-select"
+                [ngModel]="tarea.estado"
+                (ngModelChange)="cambiarEstado(tarea, $event)"
+                [name]="'estado-' + tarea.id"
+              >
+                <option value="pendiente">Pendiente</option>
+                <option value="en-progreso">En progreso</option>
+                <option value="completada">Completada</option>
+              </select>
+            }
+          </div>
+        </div>
+      }
+    </div>
+  } @else {
+    <p class="empty-message">Todavía no hay tareas registradas.</p>
+  }
+</div>

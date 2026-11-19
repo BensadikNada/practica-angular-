@@ -1,0 +1,86 @@
+
+<div class="editar-container">
+
+  <div class="page-header">
+    <h1>Editar empleado</h1>
+    <p>Modifica la información del empleado.</p>
+  </div>
+
+  <div class="form-card">
+    <form (ngSubmit)="guardarCambios()">
+
+      <div class="form-group">
+        <label for="nombreCompleto">Nombre completo</label>
+        <input
+          type="text"
+          id="nombreCompleto"
+          name="nombreCompleto"
+          [(ngModel)]="empleado.nombreCompleto"
+          required>
+      </div>
+
+      <div class="form-group">
+        <label for="correoElectronico">Correo electrónico</label>
+        <input
+          type="email"
+          id="correoElectronico"
+          name="correoElectronico"
+          [(ngModel)]="empleado.correoElectronico"
+          required>
+      </div>
+
+      <div class="form-group">
+        <label for="puesto">Puesto</label>
+        <input
+          type="text"
+          id="puesto"
+          name="puesto"
+          [(ngModel)]="empleado.puesto"
+          required>
+      </div>
+
+      <div class="form-group">
+        <label for="proyectos">Proyectos asignados</label>
+        <select
+          id="proyectos"
+          name="proyectos"
+          multiple
+          [(ngModel)]="empleado.proyectosId">
+
+          @for (proyecto of proyectos; track proyecto.id) {
+            <option [ngValue]="proyecto.id">{{ proyecto.nombre }}</option>
+          }
+
+        </select>
+        <small>Mantén pulsada la tecla Ctrl para seleccionar varios.</small>
+      </div>
+
+      <div class="form-group">
+        <label for="tareas">Tareas asignadas</label>
+        <select
+          id="tareas"
+          name="tareas"
+          multiple
+          [(ngModel)]="empleado.tareasId">
+
+          @for (tarea of tareas; track tarea.id) {
+            <option [ngValue]="tarea.id">{{ tarea.titulo }}</option>
+          }
+
+        </select>
+        <small>Mantén pulsada la tecla Ctrl para seleccionar varios.</small>
+      </div>
+
+      <div class="form-actions">
+        <button type="button" class="cancel-button" (click)="cancelar()">
+          Cancelar
+        </button>
+
+        <button type="submit" class="save-button">
+          Guardar cambios
+        </button>
+      </div>
+
+    </form>
+  </div>
+</div>

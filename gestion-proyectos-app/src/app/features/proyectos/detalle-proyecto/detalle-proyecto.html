@@ -1,0 +1,92 @@
+<div class="detalle-container">
+  @if (proyecto) {
+    <div class="detalle-header">
+      <div>
+        <h1>{{ proyecto.nombre }}</h1>
+        <p>Información del proyecto</p>
+      </div>
+
+      <a routerLink="/proyectos" class="back-button"> Volver a proyectos </a>
+    </div>
+
+    <div class="detalle-card">
+      <!-- Description -->
+      <div class="detalle-section">
+        <h2>Descripción</h2>
+        <p>{{ proyecto.descripcion }}</p>
+      </div>
+
+      <!-- Dates -->
+      <div class="detalle-dates">
+        <div>
+          <strong>Fecha de inicio</strong>
+          <p>{{ proyecto.fechaInicio | date: 'dd/MM/yyyy' }}</p>
+        </div>
+
+        <div>
+          <strong>Fecha estimada de fin</strong>
+          <p>{{ proyecto.fechaFin | date: 'dd/MM/yyyy' }}</p>
+        </div>
+      </div>
+
+      <!-- Assigned employees -->
+      <div class="detalle-section">
+        <h2>Empleados asignados ({{ empleadosAsignados.length }})</h2>
+
+        @if (empleadosAsignados.length > 0) {
+          <div class="assigned-list">
+            @for (empleado of empleadosAsignados; track empleado.id) {
+              <div class="assigned-item">
+                <div>
+                  <strong>{{ empleado.nombreCompleto }}</strong>
+                  <p>{{ empleado.correoElectronico }}</p>
+                  <small>{{ empleado.puesto }}</small>
+                </div>
+              </div>
+            }
+          </div>
+        } @else {
+          <p class="empty-message">No hay empleados asignados a este proyecto.</p>
+        }
+      </div>
+
+      <!-- Associated tasks -->
+      <div class="detalle-section">
+        <h2>Tareas asociadas ({{ tareasAsociadas.length }})</h2>
+
+        @if (tareasAsociadas.length > 0) {
+          <div class="assigned-list">
+            @for (tarea of tareasAsociadas; track tarea.id) {
+              <div class="assigned-item">
+                <div>
+                  <strong>{{ tarea.titulo }}</strong>
+                  <p>{{ tarea.descripcion }}</p>
+
+                  <span class="estado" [class]="tarea.estado">
+                    @if (tarea.estado === 'pendiente') {
+                      Pendiente
+                    } @else if (tarea.estado === 'en-progreso') {
+                      En progreso
+                    } @else {
+                      Completada
+                    }
+                  </span>
+                </div>
+
+                <a [routerLink]="['/tareas', tarea.id]" class="view-task-button"> Ver tarea </a>
+              </div>
+            }
+          </div>
+        } @else {
+          <p class="empty-message">No hay tareas asociadas a este proyecto.</p>
+        }
+      </div>
+
+      @if (esAdmin) {
+        <a [routerLink]="['/proyectos/editar', proyecto.id]" class="edit-button">
+          Editar proyecto
+        </a>
+      }
+    </div>
+  }
+</div>

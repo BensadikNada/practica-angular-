@@ -1,0 +1,97 @@
+
+<div class="crear-container">
+
+  <div class="page-header">
+    <h1>Nueva tarea</h1>
+    <p>Completa la información para registrar una nueva tarea.</p>
+  </div>
+
+  <div class="form-card">
+    <form (ngSubmit)="crearTarea()">
+
+      <div class="form-group">
+        <label for="titulo">Título de la tarea</label>
+        <input
+          type="text"
+          id="titulo"
+          name="titulo"
+          [(ngModel)]="nuevaTarea.titulo"
+          placeholder="Introduce el título"
+          required>
+      </div>
+
+      <div class="form-group">
+        <label for="descripcion">Descripción</label>
+        <textarea
+          id="descripcion"
+          name="descripcion"
+          rows="4"
+          [(ngModel)]="nuevaTarea.descripcion"
+          placeholder="Describe la tarea"
+          required>
+        </textarea>
+      </div>
+
+      <div class="form-group">
+        <label for="proyectoId">Proyecto</label>
+        <select
+          id="proyectoId"
+          name="proyectoId"
+          [(ngModel)]="nuevaTarea.proyectoId"
+          required>
+          <option [ngValue]="0" disabled>Selecciona un proyecto</option>
+
+          @for (proyecto of proyectos; track proyecto.id) {
+            <option [ngValue]="proyecto.id">
+              {{ proyecto.nombre }}
+            </option>
+          }
+        </select>
+      </div>
+
+      <div class="form-group">
+        <label for="estado">Estado</label>
+        <select
+          id="estado"
+          name="estado"
+          [(ngModel)]="nuevaTarea.estado">
+          <option value="pendiente">Pendiente</option>
+          <option value="en-progreso">En progreso</option>
+          <option value="completada">Completada</option>
+        </select>
+      </div>
+
+      <div class="form-row">
+        <div class="form-group">
+          <label for="fechaInicio">Fecha de creación</label>
+          <input
+            type="date"
+            id="fechaInicio"
+            name="fechaInicio"
+            [(ngModel)]="nuevaTarea.fechaInicio"
+            required>
+        </div>
+
+        <div class="form-group">
+          <label for="fechaFin">Fecha de entrega (opcional)</label>
+          <input
+            type="date"
+            id="fechaFin"
+            name="fechaFin"
+            [(ngModel)]="nuevaTarea.fechaFin">
+        </div>
+      </div>
+
+      <div class="form-actions">
+        <button type="button" class="cancel-button" (click)="cancelar()">
+          Cancelar
+        </button>
+
+        <button type="submit" class="save-button">
+          Crear tarea
+        </button>
+      </div>
+
+    </form>
+  </div>
+</div>

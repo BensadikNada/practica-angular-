@@ -1,0 +1,67 @@
+
+<div class="editar-container">
+  <div class="page-header">
+    <h1>Editar proyecto</h1>
+    <p>Modifica la información del proyecto.</p>
+  </div>
+
+  <div class="form-card">
+    <form (ngSubmit)="guardarCambios()">
+      <div class="form-group">
+        <label for="nombre">Nombre del proyecto</label>
+        <input
+          type="text"
+          id="nombre"
+          name="nombre"
+          [(ngModel)]="proyecto.nombre"
+          required>
+      </div>
+
+      <div class="form-group">
+        <label for="descripcion">Descripción</label>
+        <textarea
+          id="descripcion"
+          name="descripcion"
+          rows="4"
+          [(ngModel)]="proyecto.descripcion"
+          required>
+        </textarea>
+      </div>
+
+      <div class="form-row">
+        <div class="form-group">
+          <label for="fechaInicio">Fecha de inicio</label>
+          <input
+            type="date"
+            id="fechaInicio"
+            name="fechaInicio"
+            [(ngModel)]="proyecto.fechaInicio"
+            required>
+        </div>
+
+        <div class="form-group">
+          <label for="fechaFin">Fecha estimada de fin</label>
+          <input
+            type="date"
+            id="fechaFin"
+            name="fechaFin"
+            [(ngModel)]="proyecto.fechaFin"
+            required>
+        </div>
+      </div>
+
+      <div class="form-actions">
+        <button
+          type="button"
+          class="cancel-button"
+          (click)="cancelar()">
+          Cancelar
+        </button>
+
+        <button type="submit" class="save-button">
+          Guardar cambios
+        </button>
+      </div>
+    </form>
+  </div>
+</div>

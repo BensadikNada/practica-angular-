@@ -1,0 +1,31 @@
+<div class="dashboard-container">
+  <h1>Dashboard</h1>
+  <p>Resumen general de la gestión de proyectos.</p>
+
+  <div class="stats-container">
+    <div class="stat-card">
+      <h3>Total de proyectos</h3>
+      <p class="stat-number">{{ totalProyectos }}</p>
+    </div>
+
+    <div class="stat-card">
+      <h3>Total de tareas</h3>
+      <p class="stat-number">{{ totalTareas }}</p>
+    </div>
+
+    <div class="stat-card">
+      <h3>Total de empleados</h3>
+      <p class="stat-number">{{ totalEmpleados }}</p>
+    </div>
+  </div>
+
+  <div class="charts-container">
+    <div class="chart-card">
+      <h2>Estado de las tareas</h2>
+
+      <div class="chart-wrapper">
+        <canvas id="tasksChart"></canvas>
+      </div>
+    </div>
+  </div>
+</div>

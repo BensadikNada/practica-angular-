@@ -1,0 +1,64 @@
+
+<div class="detalle-container">
+
+  @if (tarea) {
+    <div class="detalle-header">
+      <div>
+        <h1>{{ tarea.titulo }}</h1>
+        <p>Información de la tarea</p>
+      </div>
+
+      <a routerLink="/tareas" class="back-button">
+        Volver a tareas
+      </a>
+    </div>
+
+    <div class="detalle-card">
+
+      <div class="detalle-section">
+        <h2>Descripción</h2>
+        <p>{{ tarea.descripcion }}</p>
+      </div>
+
+      <div class="detalle-section">
+        <h2>Proyecto</h2>
+        <p>{{ nombreProyecto }}</p>
+      </div>
+
+      <div class="detalle-section">
+        <h2>Estado</h2>
+        <span class="estado" [class]="tarea.estado">
+          {{ tarea.estado === 'en-progreso' ? 'En progreso' :
+             tarea.estado === 'completada' ? 'Completada' : 'Pendiente' }}
+        </span>
+      </div>
+
+      <div class="detalle-dates">
+        <div>
+          <strong>Fecha de creación</strong>
+          <p>{{ tarea.fechaInicio | date:'dd/MM/yyyy' }}</p>
+        </div>
+
+        <div>
+          <strong>Fecha de entrega</strong>
+
+          @if (tarea.fechaFin) {
+            <p>{{ tarea.fechaFin | date:'dd/MM/yyyy' }}</p>
+          } @else {
+            <p>Sin fecha de entrega</p>
+          }
+        </div>
+      </div>
+
+      @if (authAdmin) {
+        <a
+          [routerLink]="['/tareas/editar', tarea.id]"
+          class="edit-button">
+          Editar tarea
+        </a>
+      }
+
+    </div>
+  }
+
+</div>
