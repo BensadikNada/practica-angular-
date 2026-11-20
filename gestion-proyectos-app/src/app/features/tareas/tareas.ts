@@ -61,13 +61,14 @@ export class Tareas implements OnInit {
   }
 
   cambiarEstado(tarea: Tarea, nuevoEstado: TareaEstado): void {
-    const { id, ...datosTarea } = tarea;
-    this.cdr.detectChanges();
-
-    this.tareaService.updateTarea(id, {
-      ...datosTarea,
+    const tareaActualizada = {
+      ...tarea,
       estado: nuevoEstado,
-    });
+    };
+
+    const { id, ...datosTarea } = tareaActualizada;
+    this.tareaService.updateTarea(id, datosTarea);
+    this.tareas = this.tareas.map((t) => (t.id === id ? tareaActualizada : t));
 
     Toastify({
       text: '¡Estado de la tarea actualizado!',

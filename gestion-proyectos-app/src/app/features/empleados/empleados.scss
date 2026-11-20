@@ -69,6 +69,10 @@
     font-size: 14px;
     margin: 10px 0;
     overflow-wrap: anywhere;
+
+    span{
+      text-transform: capitalize;
+    }
   }
 }
 

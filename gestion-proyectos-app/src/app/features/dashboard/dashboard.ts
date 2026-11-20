@@ -11,6 +11,7 @@ import {
 import { ProyectoService } from '../../core/services/proyecto';
 import { TareaService } from '../../core/services/tarea';
 import { EmpleadoService } from '../../core/services/empleado';
+import { AuthService } from '../../core/services/auth';
 
 Chart.register(BarController, BarElement, CategoryScale, LinearScale, Tooltip, Legend);
 
@@ -21,6 +22,8 @@ Chart.register(BarController, BarElement, CategoryScale, LinearScale, Tooltip, L
   styleUrl: './dashboard.scss',
 })
 export class Dashboard implements AfterViewInit {
+  user: ReturnType<AuthService['getCurrentUser']> = null;
+
   totalProyectos: number = 0;
   totalTareas: number = 0;
   totalEmpleados: number = 0;
@@ -34,25 +37,28 @@ export class Dashboard implements AfterViewInit {
     private tareaService: TareaService,
     private empleadoService: EmpleadoService,
     private cdr: ChangeDetectorRef,
+    private authService: AuthService,
   ) {}
 
-  localStatistics(): void{
+  localStatistics(): void {
     const proyectos = this.proyectoService.getProyectos();
     const tareas = this.tareaService.getTareas();
     const empleados = this.empleadoService.getEmpleados();
-    
+
     // total statistics
     this.totalProyectos = proyectos.length;
     this.totalTareas = tareas.length;
     this.totalEmpleados = empleados.length;
 
     // filter tarea con el estado
-    this.tareasCompletadas = tareas.filter(tarea => tarea.estado === 'completada').length;
-    this.tareasEnProgreso = tareas.filter(tarea => tarea.estado === 'en-progreso').length;
-    this.tareasPendientes = tareas.filter(tarea => tarea.estado === 'pendiente').length;
+    this.tareasCompletadas = tareas.filter((tarea) => tarea.estado === 'completada').length;
+    this.tareasEnProgreso = tareas.filter((tarea) => tarea.estado === 'en-progreso').length;
+    this.tareasPendientes = tareas.filter((tarea) => tarea.estado === 'pendiente').length;
   }
 
   ngAfterViewInit(): void {
+    this.user = this.authService.getCurrentUser();
+
     this.localStatistics();
     this.createTasksChart();
     this.cdr.detectChanges();
