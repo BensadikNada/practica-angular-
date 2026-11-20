@@ -55,7 +55,7 @@ Antes de ejecutar el proyecto, necesitas tener instalado:
 1. Clonar el repositorio:
 
 ```bash
-git clone URL_DEL_REPOSITORIO
+git clone https://github.com/BensadikNada/practica-angular-
 ```
 
 2. Entrar en la carpeta del proyecto:
